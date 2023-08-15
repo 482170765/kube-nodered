@@ -9,10 +9,17 @@
     {
         "id": "34d396e7c091c5fd",
         "type": "tab",
-        "label": "流程1",
+        "label": "three-pipelines",
         "disabled": false,
         "info": "",
         "env": []
+    },
+    {
+        "id": "a1b2b31b.65fe7",
+        "type": "tab",
+        "label": "python-shell test",
+        "disabled": false,
+        "info": ""
     },
     {
         "id": "3cc11d24.ff01a2",
@@ -67,9 +74,7 @@
         "x": 480,
         "y": 440,
         "wires": [
-            [
-                "7588c855ba3f1c81"
-            ]
+            []
         ]
     },
     {
@@ -163,9 +168,129 @@
         "wires": []
     },
     {
-        "id": "8dee94ea89d69868",
-        "type": "inject",
+        "id": "ba8b7060f34ca920",
+        "type": "decisionTree",
         "z": "34d396e7c091c5fd",
+        "name": "",
+        "pyfile": "/data/1.connect-kubeflow/py/decisionTree.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": "",
+        "python3": true,
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "4fe06d66df1b4abc"
+            ]
+        ]
+    },
+    {
+        "id": "0d9bc06821e4baee",
+        "type": "randomForest",
+        "z": "34d396e7c091c5fd",
+        "name": "",
+        "pyfile": "/data/1.connect-kubeflow/py/randomForest.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": "",
+        "python3": true,
+        "x": 340,
+        "y": 320,
+        "wires": [
+            [
+                "f70f04576107ff77"
+            ]
+        ]
+    },
+    {
+        "id": "4fe06d66df1b4abc",
+        "type": "debug",
+        "z": "34d396e7c091c5fd",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "25502edaaffdbc08",
+        "type": "debug",
+        "z": "34d396e7c091c5fd",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f70f04576107ff77",
+        "type": "debug",
+        "z": "34d396e7c091c5fd",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7b45b43be009954d",
+        "type": "logisticRegression",
+        "z": "34d396e7c091c5fd",
+        "name": "",
+        "pyfile": "/data/1.connect-kubeflow/py/logisticRegression.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": "",
+        "python3": true,
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "25502edaaffdbc08"
+            ]
+        ]
+    },
+    {
+        "id": "3df34b3a.b6bb8c",
+        "type": "pythonshell in",
+        "z": "a1b2b31b.65fe7",
+        "name": "",
+        "pyfile": "/data/1.connect-kubeflow/py/test.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": false,
+        "x": 341.5,
+        "y": 154,
+        "wires": [
+            [
+                "eb21bb3c5671b6da"
+            ]
+        ]
+    },
+    {
+        "id": "f4dcbeae.1da998",
+        "type": "inject",
+        "z": "a1b2b31b.65fe7",
         "name": "",
         "props": [
             {
@@ -179,57 +304,22 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "onceDelay": 0.1,
+        "onceDelay": "",
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 100,
+        "payload": "datapath = \"/data/1.connect-kubeflow/py/test.py\"",
+        "payloadType": "str",
+        "x": 140.5,
+        "y": 76,
         "wires": [
             [
-                "3774dda722991262"
+                "3df34b3a.b6bb8c"
             ]
         ]
     },
     {
-        "id": "3774dda722991262",
-        "type": "function",
-        "z": "34d396e7c091c5fd",
-        "name": "",
-        "func": "// Create a Date object from the payload\nvar date = new Date(msg.payload);\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n// Return the message so it can be sent on\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 330,
-        "y": 100,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3c4249285cbc688f",
-        "type": "pythonshell in",
-        "z": "34d396e7c091c5fd",
-        "name": "kfp python",
-        "pyfile": "/data/test/list_pipeline.py",
-        "virtualenv": "",
-        "continuous": true,
-        "stdInData": false,
-        "python3": true,
-        "x": 520,
-        "y": 100,
-        "wires": [
-            [
-                "34b5dbfbdecdea24"
-            ]
-        ]
-    },
-    {
-        "id": "34b5dbfbdecdea24",
+        "id": "f811cd5c.e9dfe8",
         "type": "debug",
-        "z": "34d396e7c091c5fd",
+        "z": "a1b2b31b.65fe7",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -239,8 +329,26 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 100,
+        "x": 550,
+        "y": 240,
         "wires": []
+    },
+    {
+        "id": "eb21bb3c5671b6da",
+        "type": "pythonshell in",
+        "z": "a1b2b31b.65fe7",
+        "name": "",
+        "pyfile": "/data/1.connect-kubeflow/py/test.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": false,
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "f811cd5c.e9dfe8"
+            ]
+        ]
     }
 ]
