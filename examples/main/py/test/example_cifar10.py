@@ -13,7 +13,7 @@ def load_data_func(log_folder:str) -> NamedTuple('Outputs', [('x_train', str), (
     import tensorflow as tf
     import numpy as np
     
-    dataset = tf.keras.datasets.cifar10
+    dataset = tf.keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = dataset.load_data()
     x_train, x_test = x_train / 255.0, x_test / 255.0
     
@@ -89,13 +89,10 @@ def tensorboard_func(log_dir:str) -> NamedTuple('Outputs', [('mlpipeline_ui_meta
     return ([json.dumps(metadata)])
 
 @dsl.pipeline(
-   name='cifar10 pipeline',
-   description='A pipeline to train a model on cifar10 dataset and start a tensorboard.'
+   name='Final pipeline',
+   description='A pipeline to train a model on dataset and start a tensorboard.'
 )
-def cifar10_pipeline(
-    epochs=5,
-    model_name="model03",
-):
+def final_pipeline(epochs=5, model_name="model03",):
 
     log_folder = '/data'
     pvc_name = "mypvc"
@@ -140,4 +137,4 @@ def cifar10_pipeline(
         log_folder:vop.volume,
     }).set_cpu_limit("1").set_cpu_request("0.5") 
 
-kfp.compiler.Compiler().compile(cifar10_pipeline, 'cifar10_beta.yaml')
+kfp.compiler.Compiler().compile(final_pipeline, 'final_pipeline.yaml')
