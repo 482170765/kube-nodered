@@ -119,11 +119,11 @@ with kfp_server_api.ApiClient(configuration, cookie=auth_session["session_cookie
             print("Pipeline is still running. Waiting...")
             time.sleep(polling_interval-1)
 
-        for node_id, node in nodes.items():
-                if 'inputs' in node and 'parameters' in node['inputs']:
-                    for parameter in node['inputs']['parameters']:
-                        if parameter['name'] == 'random-forest-classifier-Accuracy': #change parameter
-                            output_value = parameter['value']
+        # for node_id, node in nodes.items():
+        #         if 'inputs' in node and 'parameters' in node['inputs']:
+        #             for parameter in node['inputs']['parameters']:
+        #                 if parameter['name'] == 'random-forest-classifier-Accuracy': #change parameter
+        #                     output_value = parameter['value']
                             
     if output_value is not None:
         print(f"Random Forest Classifier Accuracy: {output_value}")

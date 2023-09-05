@@ -30,10 +30,10 @@ which would mount the current folder (i.e. ./example) onto the containers. We to
 The example-args allows you to specify which example you want to run, for example
 
 ```
-./run.sh 0.helloworld
+./run.sh main
 ```
 
-would run the `0.helloworld` example.
+would run the `main` example.
 
 ##### Visit vis UI
 

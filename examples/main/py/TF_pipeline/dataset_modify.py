@@ -1,10 +1,9 @@
 def modify_python_file(file_path, new_code):
-    # 打開文件並讀取內容
     with open(file_path, 'r') as file:
         content = file.read()
 
-    start_tag = "    # START_TRAIN_CODE"
-    end_tag = "    # END_TRAIN_CODE"
+    start_tag = "    # START_DATASET_CODE"
+    end_tag = "    # END_DATASET_CODE"
 
     start_index = content.find(start_tag)
     end_index = content.find(end_tag)
@@ -19,7 +18,8 @@ def modify_python_file(file_path, new_code):
     else:
         print("Custom code tags not found.")
 
-new_code = "    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])"
-file_path = "./copy.py"
+new_code = "    dataset = tf.keras.datasets.mnist"
+#new_code = "    dataset = tf.keras.datasets.cifar10"
+file_path = "./target.py"
 
 modify_python_file(file_path, new_code)

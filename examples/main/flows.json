@@ -9,7 +9,7 @@
     {
         "id": "a1b2b31b.65fe7",
         "type": "tab",
-        "label": "python-shell test",
+        "label": "modularize",
         "disabled": false,
         "info": ""
     },
@@ -70,24 +70,6 @@
         ]
     },
     {
-        "id": "7588c855ba3f1c81",
-        "type": "pythonshell in",
-        "z": "f6f2187d.f17ca8",
-        "name": "kfp python",
-        "pyfile": "/data/1.connect-kubeflow/py/kfp_example.py",
-        "virtualenv": "",
-        "continuous": true,
-        "stdInData": false,
-        "python3": true,
-        "x": 670,
-        "y": 440,
-        "wires": [
-            [
-                "b126ea03f7d74573"
-            ]
-        ]
-    },
-    {
         "id": "b126ea03f7d74573",
         "type": "debug",
         "z": "f6f2187d.f17ca8",
@@ -109,7 +91,7 @@
         "type": "pythonshell in",
         "z": "f6f2187d.f17ca8",
         "name": "install dependency",
-        "pyfile": "/data/1.connect-kubeflow/py/install.py",
+        "pyfile": "/data/main/py/install.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": false,
@@ -160,20 +142,38 @@
         "wires": []
     },
     {
+        "id": "ffe395298ffe40e0",
+        "type": "pythonshell in",
+        "z": "f6f2187d.f17ca8",
+        "name": "list experiments",
+        "pyfile": "/data/main/py/api_examples/list_experiments.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": false,
+        "python3": true,
+        "x": 680,
+        "y": 440,
+        "wires": [
+            [
+                "b126ea03f7d74573"
+            ]
+        ]
+    },
+    {
         "id": "3df34b3a.b6bb8c",
         "type": "pythonshell in",
         "z": "a1b2b31b.65fe7",
         "name": "dataset",
-        "pyfile": "/data/beta/py/new/test.py",
+        "pyfile": "/data/main/py/Sklearn_pipeline/dataset_modify.py",
         "virtualenv": "",
         "continuous": false,
         "stdInData": false,
-        "python3": false,
-        "x": 321.5,
-        "y": 154,
+        "python3": true,
+        "x": 400,
+        "y": 80,
         "wires": [
             [
-                "eb21bb3c5671b6da"
+                "f811cd5c.e9dfe8"
             ]
         ]
     },
@@ -181,7 +181,7 @@
         "id": "f4dcbeae.1da998",
         "type": "inject",
         "z": "a1b2b31b.65fe7",
-        "name": "",
+        "name": "mnist",
         "props": [
             {
                 "p": "payload"
@@ -195,11 +195,11 @@
         "crontab": "",
         "once": false,
         "onceDelay": "",
-        "topic": "",
-        "payload": "datapath = \"/data/new/py/example.py\"",
+        "topic": "input",
+        "payload": "mnist",
         "payloadType": "str",
-        "x": 140.5,
-        "y": 76,
+        "x": 130,
+        "y": 40,
         "wires": [
             [
                 "3df34b3a.b6bb8c"
@@ -219,8 +219,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
-        "y": 240,
+        "x": 590,
+        "y": 80,
         "wires": []
     },
     {
@@ -228,16 +228,248 @@
         "type": "pythonshell in",
         "z": "a1b2b31b.65fe7",
         "name": "model",
-        "pyfile": "/data/beta/py/new/test.py",
+        "pyfile": "/data/main/py/Sklearn_pipeline/model_modify.py",
         "virtualenv": "",
         "continuous": false,
         "stdInData": false,
-        "python3": false,
-        "x": 370,
-        "y": 240,
+        "python3": true,
+        "x": 390,
+        "y": 220,
         "wires": [
             [
-                "f811cd5c.e9dfe8"
+                "0f7a3117cc8d1f19"
+            ]
+        ]
+    },
+    {
+        "id": "0f7a3117cc8d1f19",
+        "type": "debug",
+        "z": "a1b2b31b.65fe7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "111acb04222cec16",
+        "type": "inject",
+        "z": "a1b2b31b.65fe7",
+        "name": "DecisionTreeClassifier",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "input",
+        "payload": "DecisionTreeClassifier 5",
+        "payloadType": "str",
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "eb21bb3c5671b6da"
+            ]
+        ]
+    },
+    {
+        "id": "de7b9195aca1d2b8",
+        "type": "inject",
+        "z": "a1b2b31b.65fe7",
+        "name": "no use",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "input",
+        "payload": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "93f8c7ecef9cdadb"
+            ]
+        ]
+    },
+    {
+        "id": "93f8c7ecef9cdadb",
+        "type": "pythonshell in",
+        "z": "a1b2b31b.65fe7",
+        "name": "train",
+        "pyfile": "/data/main/py/Sklearn_pipeline/train_modify.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": true,
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "38528b71abd4b5dd"
+            ]
+        ]
+    },
+    {
+        "id": "38528b71abd4b5dd",
+        "type": "debug",
+        "z": "a1b2b31b.65fe7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5f7f50e1a366be20",
+        "type": "pythonshell in",
+        "z": "a1b2b31b.65fe7",
+        "name": "deploy",
+        "pyfile": "/data/main/py/Sklearn_pipeline/deploy.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": true,
+        "x": 390,
+        "y": 420,
+        "wires": [
+            [
+                "78de1be973fcac76"
+            ]
+        ]
+    },
+    {
+        "id": "78de1be973fcac76",
+        "type": "debug",
+        "z": "a1b2b31b.65fe7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "ac3782748a14bb3a",
+        "type": "inject",
+        "z": "a1b2b31b.65fe7",
+        "name": "model_name",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "input",
+        "payload": "model08",
+        "payloadType": "str",
+        "x": 150,
+        "y": 420,
+        "wires": [
+            [
+                "5f7f50e1a366be20"
+            ]
+        ]
+    },
+    {
+        "id": "fb1493fa901b1bce",
+        "type": "inject",
+        "z": "a1b2b31b.65fe7",
+        "name": "RandomForestClassifier",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "input",
+        "payload": "RandomForestClassifier 100 gini",
+        "payloadType": "str",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "eb21bb3c5671b6da"
+            ]
+        ]
+    },
+    {
+        "id": "098c30e9d06997c2",
+        "type": "inject",
+        "z": "a1b2b31b.65fe7",
+        "name": "cifar10",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "input",
+        "payload": "cifar10",
+        "payloadType": "str",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "3df34b3a.b6bb8c"
             ]
         ]
     }

@@ -32,12 +32,15 @@ def load_data_func(log_folder:str) -> NamedTuple('Outputs', [('x_train', str), (
         os.path.join(log_folder, 'y_test.npy')
     )
 
-def model_func(epochs:int, model_name:str, log_folder:str, x_train_path: str, y_train_path: str, x_test_path: str, y_test_path: str) -> NamedTuple('Outputs', [('logdir', str)]):
+def model_func(epochs:int, model_name:str, log_folder:str, x_train_path: str, y_train_path: str, x_test_path: str, y_test_path: str) -> NamedTuple('Outputs', [('logdir', str), ('accuracy', float)]):
     import tensorflow as tf
     import numpy as np
     import datetime
     import json
     import os
+    from sklearn.metrics import accuracy_score
+    
+    import joblib
     print('model_func:', log_folder)
     
     x_train = np.load(x_train_path)
@@ -45,57 +48,55 @@ def model_func(epochs:int, model_name:str, log_folder:str, x_train_path: str, y_
     x_test = np.load(x_test_path)
     y_test = np.load(y_test_path)
     
+    x_train = x_train.reshape(x_train.shape[0], -1)
+    x_test = x_test.reshape(x_test.shape[0], -1)
+
     def create_model():
         # START_MODEL_CODE
-        return tf.keras.models.Sequential([tf.keras.layers.Flatten(input_shape = (32,32,3)),tf.keras.layers.Dense(512, activation = 'relu'),tf.keras.layers.Dropout(0.2),tf.keras.layers.Dense(256, activation = 'relu'),tf.keras.layers.Dropout(0.2),tf.keras.layers.Dense(10, activation = 'softmax')])
+        from sklearn.tree import DecisionTreeClassifier
+        return DecisionTreeClassifier(max_depth=5)
         # END_MODEL_CODE
         
     model = create_model()
     
     # START_TRAIN_CODE
-    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+
     # END_TRAIN_CODE
     
-    model.fit(x=x_train, 
-              y=y_train, 
-              epochs=epochs, 
-              validation_data=(x_test, y_test), 
-              callbacks=[tensorboard_callback])
-    
-    # add tensorboard logout callback
+    ### add log
     log_dir = os.path.join(log_folder, datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
-
-    # export model file to $log_folder/$model_name/1
-    tf_model_path  = os.path.join(log_folder, model_name, '1')
-    tf.keras.models.save_model(model=model, filepath=tf_model_path, overwrite=True, include_optimizer=True, save_format=None, signatures=None, options=None)
+    ######
     
-    print('At least tensorboard callbacks are correct')
+    # Train the model
+    model.fit(x_train, y_train)
+    
+    # Get predictions
+    y_pred = model.predict(x_test)
+    
+    # Get accuracy
+    accuracy = accuracy_score(y_test, y_pred)
+    
+    model_path = os.path.join(log_folder, model_name, 'model.joblib') # remove 1
+    os.makedirs(os.path.dirname(model_path), exist_ok=True)
+    joblib.dump(model, model_path)
+    
     print('logdir:', log_dir)
-    return ([log_dir])
-
-def tensorboard_func(log_dir:str) -> NamedTuple('Outputs', [('mlpipeline_ui_metadata', 'UI_metadata')]):
-    
-    print('tensorboard_func:', log_dir)
-    metadata = {
-      'outputs' : [{
-        'type': 'tensorboard',
-        #'source': log_dir,
-        'source': 'gs://footprintai-kubeflow-workshop/cifar10/epoch5',
-      }]
-    }
-    import json
-    return ([json.dumps(metadata)])
+    print('accuracy', accuracy)
+    accuracy = float(accuracy)
+    return ([log_dir, accuracy])
 
 @dsl.pipeline(
    name='Final pipeline',
-   description='A pipeline to train a model on dataset and start a tensorboard.'
+   description='A pipeline to train a model on dataset output accuracy.'
 )
-def final_pipeline(epochs=5, model_name="model03",):
+
+def final_pipeline(epochs=5, model_name="model00",):
 
     log_folder = '/data'
     pvc_name = "mypvc"
-    
+    # START_DEPLOY_CODE
+    model_name = "model08"
+    # END_DEPLOY_CODE
     vop = dsl.VolumeOp(
         name=pvc_name,
         resource_name="newpvc",
@@ -110,10 +111,7 @@ def final_pipeline(epochs=5, model_name="model03",):
     model_op = func_to_container_op(
         func=model_func,
         base_image="tensorflow/tensorflow:2.0.0-py3",
-    )
-    tensorboard_op = func_to_container_op(
-        func=tensorboard_func,
-        base_image="python:3.7-slim",
+        packages_to_install=["scikit-learn"]
     )
     ########################################################
     load_data_task = load_data_op(log_folder).add_pvolumes({
@@ -131,9 +129,5 @@ def final_pipeline(epochs=5, model_name="model03",):
     ).add_pvolumes({
         log_folder:vop.volume,
     }).set_cpu_limit("1").set_cpu_request("0.5")
-    
-    tenaorboard_task = tensorboard_op(model_task.outputs['logdir']).add_pvolumes({
-        log_folder:vop.volume,
-    }).set_cpu_limit("1").set_cpu_request("0.5") 
 
 kfp.compiler.Compiler().compile(final_pipeline, 'final_pipeline.yaml')

@@ -1,10 +1,19 @@
+import sys
+
+string_value = sys.argv[1]
+split_strings = string_value.split(" ")
+model_name = split_strings[0]
+if not string_value:
+    print("No parameter!")
+else:
+    print("model_name: "+split_strings[0])
+
 def modify_python_file(file_path, new_code):
-    # 打開文件並讀取內容
     with open(file_path, 'r') as file:
         content = file.read()
 
-    start_tag = "    # START_DATASET_CODE"
-    end_tag = "    # END_DATASET_CODE"
+    start_tag = "    # START_DEPLOY_CODE"
+    end_tag = "    # END_DEPLOY_CODE"
 
     start_index = content.find(start_tag)
     end_index = content.find(end_tag)
@@ -19,8 +28,16 @@ def modify_python_file(file_path, new_code):
     else:
         print("Custom code tags not found.")
 
-new_code = "    dataset = tf.keras.datasets.mnist"
-#new_code = "    dataset = tf.keras.datasets.cifar10"
-file_path = "./copy.py"
+new_code = "    model_name = \""+model_name+"\""
+file_path = "./target_sklearn.py"
 
 modify_python_file(file_path, new_code)
+
+#######################################
+
+import subprocess
+
+result = subprocess.run(["python3", "target_sklearn.py"], capture_output=True, text=True)
+print(result.stdout)
+print(result.stderr)
+#######################################

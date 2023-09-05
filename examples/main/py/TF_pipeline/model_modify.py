@@ -19,8 +19,9 @@ def modify_python_file(file_path, new_code):
     else:
         print("Custom code tags not found.")
 
-new_code = "        return tf.keras.models.Sequential([tf.keras.layers.Flatten(input_shape = (32,32,3)),tf.keras.layers.Dense(512, activation = 'relu'),tf.keras.layers.Dropout(0.2),tf.keras.layers.Dense(256, activation = 'relu'),tf.keras.layers.Dropout(0.2),tf.keras.layers.Dense(10, activation = 'softmax')])" #NN
+input_shape = '(32,32,3)'
+new_code = "        return tf.keras.models.Sequential([tf.keras.layers.Flatten(input_shape = ",input_shape,"),tf.keras.layers.Dense(512, activation = 'relu'),tf.keras.layers.Dropout(0.2),tf.keras.layers.Dense(256, activation = 'relu'),tf.keras.layers.Dropout(0.2),tf.keras.layers.Dense(10, activation = 'softmax')])" #NN
 #new_code = "        from sklearn.ensemble import RandomForestClassifier\n        return RandomForestClassifier(n_estimators=100, criterion = 'gini')"
-file_path = "./copy.py"
+file_path = "./pipeline.py"
 
 modify_python_file(file_path, new_code)
