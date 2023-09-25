@@ -464,5 +464,79 @@
                 "file": "/data/main/node_modules/nodepipe/logisticregression.js"
             }
         }
+    },
+    "node-red-contrib-autoai-pipeline": {
+        "name": "node-red-contrib-autoai-pipeline",
+        "version": "0.0.1",
+        "local": true,
+        "user": false,
+        "nodes": {
+            "datasetsopt": {
+                "name": "datasetsopt",
+                "types": [
+                    "datasets"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/data/datasets.js"
+            },
+            "decisiontree": {
+                "name": "decisiontree",
+                "types": [
+                    "decisiontree"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/alg/decisiontree.js"
+            },
+            "randomforest": {
+                "name": "randomforest",
+                "types": [
+                    "randomforest"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/alg/randomforest.js"
+            },
+            "logisticregression": {
+                "name": "logisticregression",
+                "types": [
+                    "logisticregression"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/alg/logisticregression.js"
+            },
+            "modelcreator": {
+                "name": "modelcreator",
+                "types": [
+                    "model creator"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/model/modelcreator.js"
+            },
+            "deploy": {
+                "name": "deploy",
+                "types": [
+                    "deploy"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/model/deploy.js"
+            }
+        }
     }
 }

@@ -63,7 +63,7 @@ with kfp_server_api.ApiClient(configuration, cookie=auth_session["session_cookie
     
     # Create an instance of the pipeline API class
     api_instance = kfp_server_api.PipelineUploadServiceApi(api_client) 
-    uploadfile='pipelines/only_randomforest.yaml'
+    uploadfile='../pipelines/only_randomforest.yaml'
     name='pipeline-' + random_suffix()
     description="This is a only_randomForest pipline."
     try:

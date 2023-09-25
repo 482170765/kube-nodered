@@ -53,8 +53,8 @@ def model_func(epochs:int, model_name:str, log_folder:str, x_train_path: str, y_
 
     def create_model():
         # START_MODEL_CODE
-        from sklearn.tree import DecisionTreeClassifier
-        return DecisionTreeClassifier(max_depth=5)
+        from sklearn.ensemble import RandomForestClassifier
+        return RandomForestClassifier(n_estimators=100, criterion = 'gini')
         # END_MODEL_CODE
         
     model = create_model()
@@ -131,3 +131,4 @@ def final_pipeline(epochs=5, model_name="model00",):
     }).set_cpu_limit("1").set_cpu_request("0.5")
 
 kfp.compiler.Compiler().compile(final_pipeline, 'final_pipeline.yaml')
+print("Compile SUCCESS!")

@@ -7,11 +7,27 @@
         "info": ""
     },
     {
+        "id": "c9fd2f76f856879d",
+        "type": "tab",
+        "label": "base flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "a1b2b31b.65fe7",
         "type": "tab",
-        "label": "modularize",
+        "label": "modularize example1",
         "disabled": false,
         "info": ""
+    },
+    {
+        "id": "efeb6cfe443c312a",
+        "type": "tab",
+        "label": "modularize example2",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
         "id": "3cc11d24.ff01a2",
@@ -22,52 +38,6 @@
         "x": 350,
         "y": 80,
         "wires": []
-    },
-    {
-        "id": "c228c538ddfd97cc",
-        "type": "inject",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 300,
-        "y": 440,
-        "wires": [
-            [
-                "fae8437b33358ca0"
-            ]
-        ]
-    },
-    {
-        "id": "fae8437b33358ca0",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "func": "// Create a Date object from the payload\nvar date = new Date(msg.payload);\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n// Return the message so it can be sent on\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 440,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "b126ea03f7d74573",
@@ -82,7 +52,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
+        "x": 450,
         "y": 440,
         "wires": []
     },
@@ -96,7 +66,7 @@
         "continuous": true,
         "stdInData": false,
         "python3": true,
-        "x": 570,
+        "x": 270,
         "y": 300,
         "wires": [
             [
@@ -117,7 +87,7 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 770,
+        "x": 470,
         "y": 300,
         "wires": []
     },
@@ -127,7 +97,7 @@
         "z": "f6f2187d.f17ca8",
         "name": "install python dependency",
         "info": "",
-        "x": 590,
+        "x": 370,
         "y": 240,
         "wires": []
     },
@@ -137,7 +107,7 @@
         "z": "f6f2187d.f17ca8",
         "name": "read experiemnt data from kfp",
         "info": "",
-        "x": 600,
+        "x": 380,
         "y": 380,
         "wires": []
     },
@@ -151,11 +121,114 @@
         "continuous": true,
         "stdInData": false,
         "python3": true,
-        "x": 680,
+        "x": 260,
         "y": 440,
         "wires": [
             [
                 "b126ea03f7d74573"
+            ]
+        ]
+    },
+    {
+        "id": "b33d174d94620977",
+        "type": "debug",
+        "z": "c9fd2f76f856879d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6b5130cec3efaf0a",
+        "type": "debug",
+        "z": "c9fd2f76f856879d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "84f40c6e98828bb5",
+        "type": "debug",
+        "z": "c9fd2f76f856879d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "25c2644a197da5cb",
+        "type": "decisionTree",
+        "z": "c9fd2f76f856879d",
+        "name": "",
+        "pyfile": "/data/main/py/examples/decisionTree.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": "",
+        "python3": true,
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "b33d174d94620977"
+            ]
+        ]
+    },
+    {
+        "id": "afa926c570fdc7dd",
+        "type": "randomForest",
+        "z": "c9fd2f76f856879d",
+        "name": "",
+        "pyfile": "/data/main/py/examples/examples/randomForest.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": "",
+        "python3": true,
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "6b5130cec3efaf0a"
+            ]
+        ]
+    },
+    {
+        "id": "dc3a69d232e3d366",
+        "type": "logisticRegression",
+        "z": "c9fd2f76f856879d",
+        "name": "",
+        "pyfile": "/data/main/py/examples/logisticRegression.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": "",
+        "python3": true,
+        "x": 330,
+        "y": 300,
+        "wires": [
+            [
+                "84f40c6e98828bb5"
             ]
         ]
     },
@@ -170,7 +243,7 @@
         "stdInData": false,
         "python3": true,
         "x": 400,
-        "y": 80,
+        "y": 120,
         "wires": [
             [
                 "f811cd5c.e9dfe8"
@@ -199,7 +272,7 @@
         "payload": "mnist",
         "payloadType": "str",
         "x": 130,
-        "y": 40,
+        "y": 100,
         "wires": [
             [
                 "3df34b3a.b6bb8c"
@@ -220,7 +293,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 590,
-        "y": 80,
+        "y": 120,
         "wires": []
     },
     {
@@ -234,7 +307,7 @@
         "stdInData": false,
         "python3": true,
         "x": 390,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "0f7a3117cc8d1f19"
@@ -255,7 +328,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 590,
-        "y": 220,
+        "y": 240,
         "wires": []
     },
     {
@@ -437,7 +510,7 @@
         "payload": "RandomForestClassifier 100 gini",
         "payloadType": "str",
         "x": 180,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "eb21bb3c5671b6da"
@@ -466,10 +539,344 @@
         "payload": "cifar10",
         "payloadType": "str",
         "x": 130,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "3df34b3a.b6bb8c"
+            ]
+        ]
+    },
+    {
+        "id": "6709f54e46cd1943",
+        "type": "datasets",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "customized_datasets": "",
+        "traditional_datasets": "mnist",
+        "source": "traditional",
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "35c167a66d02a065"
+            ]
+        ]
+    },
+    {
+        "id": "35c167a66d02a065",
+        "type": "decisiontree",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "max_depth": "4",
+        "criterion": "gini",
+        "splitter": "best",
+        "min_samples_split": "2",
+        "min_samples_leaf": "1",
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "813c0799733ed4eb"
+            ]
+        ]
+    },
+    {
+        "id": "b76f7686234b1509",
+        "type": "randomforest",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "n_estimators": "100",
+        "max_depth": "4",
+        "criterion": "gini",
+        "min_samples_split": "2",
+        "min_samples_leaf": "1",
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "3b8feda3662db619"
+            ]
+        ]
+    },
+    {
+        "id": "a7e51f0e47e35820",
+        "type": "logisticregression",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "penalty": "l2",
+        "solver": "lbfgs",
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "3fe28c54bbb2f0a3"
+            ]
+        ]
+    },
+    {
+        "id": "8c099229c8918324",
+        "type": "deploy",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "pyfile": "",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": true,
+        "x": 610,
+        "y": 260,
+        "wires": [
+            [
+                "9b0a1caf6e63e181"
+            ]
+        ]
+    },
+    {
+        "id": "d1c890546580134f",
+        "type": "deploy",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "pyfile": "",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": true,
+        "x": 610,
+        "y": 400,
+        "wires": [
+            [
+                "bd503e5a353408b3"
+            ]
+        ]
+    },
+    {
+        "id": "8478a1fe2d7ebd9c",
+        "type": "deploy",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "pyfile": "",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "python3": true,
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "dbaff508b337ed58"
+            ]
+        ]
+    },
+    {
+        "id": "c0a1af4e6fb981a5",
+        "type": "datasets",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "customized_datasets": "",
+        "traditional_datasets": "mnist",
+        "source": "traditional",
+        "x": 200,
+        "y": 280,
+        "wires": [
+            [
+                "b76f7686234b1509"
+            ]
+        ]
+    },
+    {
+        "id": "62fef0401ac61b04",
+        "type": "datasets",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "customized_datasets": "",
+        "traditional_datasets": "mnist",
+        "source": "traditional",
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "a7e51f0e47e35820"
+            ]
+        ]
+    },
+    {
+        "id": "f3a07c1502bfb5d3",
+        "type": "inject",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "6709f54e46cd1943"
+            ]
+        ]
+    },
+    {
+        "id": "9b0a1caf6e63e181",
+        "type": "debug",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "bd503e5a353408b3",
+        "type": "debug",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "dbaff508b337ed58",
+        "type": "debug",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c91e84ff59127929",
+        "type": "inject",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 220,
+        "wires": [
+            [
+                "c0a1af4e6fb981a5"
+            ]
+        ]
+    },
+    {
+        "id": "1c69bc1006a33555",
+        "type": "inject",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 360,
+        "wires": [
+            [
+                "62fef0401ac61b04"
+            ]
+        ]
+    },
+    {
+        "id": "813c0799733ed4eb",
+        "type": "model creator",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "epochs": "5",
+        "model_name": "model11",
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "8c099229c8918324"
+            ]
+        ]
+    },
+    {
+        "id": "3b8feda3662db619",
+        "type": "model creator",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "epochs": "5",
+        "model_name": "model12",
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "d1c890546580134f"
+            ]
+        ]
+    },
+    {
+        "id": "3fe28c54bbb2f0a3",
+        "type": "model creator",
+        "z": "efeb6cfe443c312a",
+        "name": "",
+        "epochs": "5",
+        "model_name": "model13",
+        "x": 490,
+        "y": 500,
+        "wires": [
+            [
+                "8478a1fe2d7ebd9c"
             ]
         ]
     }
