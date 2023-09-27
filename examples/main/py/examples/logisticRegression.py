@@ -63,7 +63,7 @@ with kfp_server_api.ApiClient(configuration, cookie=auth_session["session_cookie
     
     # Create an instance of the pipeline API class
     api_instance = kfp_server_api.PipelineUploadServiceApi(api_client) 
-    uploadfile='../pipelines/only_logistic_regression.yaml'
+    uploadfile='../pipelines_yamls/only_logistic_regression.yaml'
     name='pipeline-' + random_suffix()
     description="This is a only_logistic_regression pipline."
     try:
