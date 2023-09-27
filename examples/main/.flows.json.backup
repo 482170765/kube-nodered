@@ -23,6 +23,14 @@
         "env": []
     },
     {
+        "id": "5d7a25b6aa9b88bd",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3cc11d24.ff01a2",
         "type": "comment",
         "z": "f6f2187d.f17ca8",
@@ -521,6 +529,7 @@
         "name": "",
         "epochs": "5",
         "model_name": "model11",
+        "overwrite": false,
         "x": 490,
         "y": 220,
         "wires": [
@@ -556,6 +565,258 @@
         "wires": [
             [
                 "8478a1fe2d7ebd9c"
+            ]
+        ]
+    },
+    {
+        "id": "c7c825fe36d6948a",
+        "type": "inject",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "f862f0f1d388bece"
+            ]
+        ]
+    },
+    {
+        "id": "012f5f05a7f5f5f7",
+        "type": "debug",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f862f0f1d388bece",
+        "type": "datasets",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "customized_datasets": "",
+        "traditional_datasets": "",
+        "source": "",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "827d7e36077f828d",
+                "62c939a5db3b16d8",
+                "8e3931a7c2e9d24c"
+            ]
+        ]
+    },
+    {
+        "id": "827d7e36077f828d",
+        "type": "decisiontree",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "max_depth": "None",
+        "criterion": "gini",
+        "splitter": "best",
+        "min_samples_split": "2",
+        "min_samples_leaf": "1",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "3f40a5587ede7f56"
+            ]
+        ]
+    },
+    {
+        "id": "62c939a5db3b16d8",
+        "type": "randomforest",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "n_estimators": "10",
+        "max_depth": "None",
+        "criterion": "gini",
+        "min_samples_split": "2",
+        "min_samples_leaf": "1",
+        "x": 280,
+        "y": 280,
+        "wires": [
+            [
+                "62fe09854e57a97a"
+            ]
+        ]
+    },
+    {
+        "id": "8e3931a7c2e9d24c",
+        "type": "logisticregression",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "penalty": "l2",
+        "solver": "lbfgs",
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "429c9a0fa1029e46"
+            ]
+        ]
+    },
+    {
+        "id": "62fe09854e57a97a",
+        "type": "model creator",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "epochs": "5",
+        "model_name": "",
+        "overwrite": false,
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "afbf6484e1e03a2d"
+            ]
+        ]
+    },
+    {
+        "id": "afbf6484e1e03a2d",
+        "type": "deploy",
+        "z": "5d7a25b6aa9b88bd",
+        "python3": true,
+        "x": 630,
+        "y": 280,
+        "wires": [
+            [
+                "012f5f05a7f5f5f7"
+            ]
+        ]
+    },
+    {
+        "id": "429c9a0fa1029e46",
+        "type": "model creator",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "epochs": "5",
+        "model_name": "",
+        "overwrite": false,
+        "x": 470,
+        "y": 360,
+        "wires": [
+            [
+                "afbf6484e1e03a2d"
+            ]
+        ]
+    },
+    {
+        "id": "3f40a5587ede7f56",
+        "type": "model creator",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "epochs": "5",
+        "model_name": "",
+        "overwrite": false,
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "afbf6484e1e03a2d"
+            ]
+        ]
+    },
+    {
+        "id": "f2e6a5a0d35abbf9",
+        "type": "decisiontree",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "max_depth": "None",
+        "criterion": "gini",
+        "splitter": "best",
+        "min_samples_split": "2",
+        "min_samples_leaf": "1",
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "034eaf274d4f9f67"
+            ]
+        ]
+    },
+    {
+        "id": "034eaf274d4f9f67",
+        "type": "datasets",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "customized_datasets": "",
+        "traditional_datasets": "",
+        "source": "",
+        "x": 300,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7fba17acbad52388",
+        "type": "inject",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 500,
+        "wires": [
+            [
+                "3ed25a7c4c94c7a9"
+            ]
+        ]
+    },
+    {
+        "id": "3ed25a7c4c94c7a9",
+        "type": "model creator",
+        "z": "5d7a25b6aa9b88bd",
+        "name": "",
+        "epochs": "5",
+        "model_name": "model09",
+        "overwrite": false,
+        "x": 360,
+        "y": 520,
+        "wires": [
+            [
+                "012f5f05a7f5f5f7"
             ]
         ]
     }

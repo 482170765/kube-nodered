@@ -480,7 +480,7 @@
                 "local": true,
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
-                "file": "/data/main/node_modules/project1/data/datasets.js"
+                "file": "/data/main/node_modules/autoAI pipeline/data/datasets.js"
             },
             "decisiontree": {
                 "name": "decisiontree",
@@ -491,7 +491,7 @@
                 "local": true,
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
-                "file": "/data/main/node_modules/project1/alg/decisiontree.js"
+                "file": "/data/main/node_modules/autoAI pipeline/alg/decisiontree.js"
             },
             "randomforest": {
                 "name": "randomforest",
@@ -502,7 +502,7 @@
                 "local": true,
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
-                "file": "/data/main/node_modules/project1/alg/randomforest.js"
+                "file": "/data/main/node_modules/autoAI pipeline/alg/randomforest.js"
             },
             "logisticregression": {
                 "name": "logisticregression",
@@ -513,7 +513,7 @@
                 "local": true,
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
-                "file": "/data/main/node_modules/project1/alg/logisticregression.js"
+                "file": "/data/main/node_modules/autoAI pipeline/alg/logisticregression.js"
             },
             "modelcreator": {
                 "name": "modelcreator",
@@ -524,7 +524,7 @@
                 "local": true,
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
-                "file": "/data/main/node_modules/project1/model/modelcreator.js"
+                "file": "/data/main/node_modules/autoAI pipeline/model/modelcreator.js"
             },
             "deploy": {
                 "name": "deploy",
@@ -535,7 +535,18 @@
                 "local": true,
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
-                "file": "/data/main/node_modules/project1/model/deploy.js"
+                "file": "/data/main/node_modules/autoAI pipeline/model/deploy.js"
+            },
+            "test": {
+                "name": "test",
+                "types": [
+                    "pythonshell in"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/test.js"
             }
         }
     }

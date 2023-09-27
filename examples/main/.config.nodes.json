@@ -536,6 +536,15 @@
                 "user": false,
                 "module": "node-red-contrib-autoai-pipeline",
                 "file": "/data/main/node_modules/autoAI pipeline/model/deploy.js"
+            },
+            "test": {
+                "name": "test",
+                "types": [],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-autoai-pipeline",
+                "file": "/data/main/node_modules/autoAI pipeline/test.js"
             }
         }
     }
