@@ -35,7 +35,7 @@ We organized some examples under examples folder, and make sensitive information
 
 1. In terminal (If you on Windows system, please use WSL)
 ```
-$ git clone https://github.com/NightLightTw/kube-nodered.git
+git clone https://github.com/482170765/kube-nodered.git
 ```
 2. Enter target folder 
 ```
